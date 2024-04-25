@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCII Art Animation with File Import</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(270deg, #f3ec78, #af4261, #28b4e5, #76b852);
+            background-size: 800% 800%;
+            animation: AnimationName 30s ease infinite;
+        }
+
+        @keyframes AnimationName {
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+
+        #ascii-art {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: pre;
+            font-size: 16px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="ascii-art"></div>
+    <script>
+        async function fetchASCII(url) {
+            const response = await fetch(url);
+            return await response.text();
+        }
+
+        async function loadAnimations() {
+            const [art1, art2] = await Promise.all([
+                fetchASCII('ascii-text/ascii_1.txt'), // Path to your ASCII art file
+                fetchASCII('ascii-text/ascii_2.txt')  // Path to your ASCII art file
+            ]);
+            const animations = [
+                { name: 'Art 1', frames: art1.split("\n\n"), interval: 300 },
+                { name: 'Art 2', frames: art2.split("\n\n"), interval: 500 }
+            ];
+            return animations;
+        }
+
+        let animations = [];
+        let currentAnimation = 0;
+        let frameIndex = 0;
+        const artContainer = document.getElementById('ascii-art');
+
+        async function animateASCII() {
+            const frames = animations[currentAnimation].frames;
+            artContainer.textContent = frames[frameIndex];
+            frameIndex = (frameIndex + 1) % frames.length;
+            setTimeout(animateASCII, animations[currentAnimation].interval);
+        }
+
+        async function init() {
+            animations = await loadAnimations();
+            animateASCII(); // Start the first animation
+            setInterval(() => {
+                currentAnimation = (currentAnimation + 1) % animations.length;
+                frameIndex = 0; // Reset frame index
+            }, 10000); // Switch animations every 10 seconds
+        }
+
+        init();
+    </script>
+</body>
+</html>
