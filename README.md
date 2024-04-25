@@ -1,4 +1,4 @@
-ASCII ART ANIMATION GENERATOR
+#ASCII ART ANIMATION GENERATOR
 This project showcases a visually appealing ASCII art display that combines a typing animation with a dynamic rainbow color effect. The application renders ASCII art in the browser, simulating a typewriter-like animation where each character is typed out sequentially, enhanced by a vibrant array of colors that cycle through the spectrum of the rainbow.
 
 Features
@@ -9,11 +9,11 @@ Responsive Design: Compatible with various display sizes, ensuring the ASCII art
 How It Works
 The animation is implemented using HTML, CSS, and JavaScript:
 
-HTML provides the structure, hosting the ASCII art within a <pre> tag to preserve formatting.
+HTML provides the structure, hosting the ASCII art within a tag to preserve formatting.
 CSS styles the container and text, adding aesthetic customization options like background color and text padding.
 JavaScript dynamically adds each character of the ASCII art into the HTML document, applying a color from the rainbow sequence and controlling the timing of each character's appearance.
 
-Coming soon:
+#Coming soon:
 Ability to import your own images and convert to ascii art and export in different file formats + more
 
-Code is provided as is.
+////Code is provided as is.////
