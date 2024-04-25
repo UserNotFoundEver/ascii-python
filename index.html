@@ -51,7 +51,7 @@
         async function loadAnimations() {
             const [art1, art2] = await Promise.all([
                 fetchASCII('ascii-text/ascii_1.txt'), // Path to your ASCII art file
-                fetchASCII('ascii-text/ascii_1.txt')  // Path to your ASCII art file
+                fetchASCII('ascii-text/ascii_2.txt')  // Path to your ASCII art file
             ]);
             const animations = [
                 { name: 'Art 1', frames: art1.split("\n\n"), interval: 300 },
