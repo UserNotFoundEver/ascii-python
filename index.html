@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ASCII Art Animation with File Import</title>
+    <title>Dynamic ASCII Art Animation</title>
     <style>
         body, html {
             height: 100%;
@@ -29,6 +29,15 @@
             text-align: center;
             color: white;
         }
+
+        @keyframes horizontalMove {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(300px); /* Adjust this value for greater movement */
+            }
+        }
     </style>
 </head>
 <body>
@@ -42,7 +51,7 @@
         async function loadAnimations() {
             const [art1, art2] = await Promise.all([
                 fetchASCII('ascii-text/ascii_1.txt'), // Path to your ASCII art file
-                fetchASCII('ascii-text/ascii_2.txt')  // Path to your ASCII art file
+                fetchASCII('ascii-text/ascii_1.txt')  // Path to your ASCII art file
             ]);
             const animations = [
                 { name: 'Art 1', frames: art1.split("\n\n"), interval: 300 },
@@ -59,6 +68,10 @@
         async function animateASCII() {
             const frames = animations[currentAnimation].frames;
             artContainer.textContent = frames[frameIndex];
+            artContainer.style.animation = 'none'; // Reset animation to trigger again
+            setTimeout(() => {
+                artContainer.style.animation = 'horizontalMove 2s ease-in-out infinite'; // Trigger movement animation
+            }, 10); // Short delay before applying animation to ensure it restarts
             frameIndex = (frameIndex + 1) % frames.length;
             setTimeout(animateASCII, animations[currentAnimation].interval);
         }
